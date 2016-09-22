@@ -2,6 +2,8 @@
 
 This is a simple real-time scrum board for a small team. It is built with Laravel 5.3, Vue 2, and Pusher.
 
+![Screenshot of Scrum Board](https://github.com/yappkahowe/scrumboard/blob/master/public/images/scrumboard.png)
+
 ## Requirement
 * LAMP
 * Composer
