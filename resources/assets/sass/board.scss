@@ -1,0 +1,183 @@
+$task-mine-heading-bg: #FCF49F;
+$task-mine-body-bg: #FFFAC9;
+$task-others-heading-bg: lighten($brand-primary, 50%);
+$task-others-body-bg: lighten($brand-primary, 70%);
+
+#board {
+    background-color: white;
+    border-radius: $border-radius-base;
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .24);
+    margin-bottom: 20px;
+
+    .page-header {
+        margin: 0;
+    }
+    .little-title {
+        font-size: 12px;
+        margin-bottom: 4px;
+    }
+    .photo {
+        border-radius: 100%;
+        height: 24px;
+        width: 24px;
+
+        & + .photo {
+            margin-left: 4px;
+        }
+    }
+    .table-board {
+        thead > tr > th {
+            text-align: center;
+        }
+        tbody > tr {
+            border-top: 1px solid #ccc;
+            border-bottom: 1px solid #ccc;
+
+            td {
+                &.teammate {
+                    width: 200px;
+
+                    .particulars {
+                        position: relative;
+
+                        .name {
+                            padding: 4px 0;
+                        }
+                        .online-mark {
+                            position: absolute;
+                            top: 35px;
+                            left: 35px;
+
+                            background-color: $brand-success;
+                            border-radius: 100%;
+                            height: 12px;
+                            width: 12px;
+                        }
+                    }
+                }
+                &.stage {
+                    border-left: 1px solid $table-border-color;
+                    border-right: 1px solid $table-border-color;
+                    padding-bottom: 32px;
+                    position: relative;
+                    height: 160px;
+                    min-width: 160px;
+                    width: 160px;
+
+                    .task {
+                        box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .24);
+                        color: #555;
+                        margin-bottom: 10px;
+                        outline: none;
+
+                        &-heading {
+                            height: 24px;
+
+                            .task-id {
+                                display: inline-block;
+                                font-size: 12px;
+                                font-weight: bold;
+                                padding: 2px 6px;
+                            }
+                        }
+                        &-body {
+                            font-family: 'Architects Daughter', cursive;
+                            font-size: 14px;
+                            min-height: 64px;
+                            padding: 6px;
+
+                            textarea {
+                                background-color: transparent;
+                                border: 0;
+                                resize: none;
+                                height: 100%;
+                                width: 100%;
+                            }
+                        }
+                        &.loading {
+                            opacity: .5;
+                        }
+                        &.mine {
+                            .task-heading {
+                                background-color: $task-mine-heading-bg;
+                            }
+                            .task-body {
+                                background-color: $task-mine-body-bg;
+                            }
+                        }
+                        &.others {
+                            .task-heading {
+                                background-color: $task-others-heading-bg;
+                            }
+                            .task-body {
+                                background-color: $task-others-body-bg;
+                            }
+                        }
+                    }
+                    .btn-create-task {
+                        position: absolute;
+                        bottom: 0;
+                        right: 0;
+                    }
+                    .btn-remove-task {
+                        color: $brand-primary;
+                        float: right;
+                    }
+                }
+                &:last-child {
+                    border-right: 0;
+                    margin-bottom: 10px;
+                }
+                .particulars {
+                    margin-bottom: 10px;
+                    min-height: 48px;
+
+                    .profile-photo {
+                        border-radius: 100%;
+                        float: left;
+                        margin-right: 10px;
+                        height: 48px;
+                        width: 48px;
+                    }
+                    .name {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    .designation {
+                        color: $gray;
+                        font-size: 12px;
+                        font-style: italic;
+                        white-space: nowrap;
+                    }
+                    .status {
+                        border-radius: 100%;
+                        display: inline-block;
+                        float: right;
+                        margin-left: 10px;
+                        position: relative;
+                        top: 6px;
+                        height: 10px;
+                        width: 10px;
+
+                        &.online {
+                            background-color: $brand-success;
+                        }
+                    }
+                }
+                .report {
+                    font-size: 12px;
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+    .offline-teammates .photo {
+        filter: grayscale(100%)
+    }
+    .online,
+    .offline {
+        &-teammates {
+            margin-bottom: 10px;
+        }
+    }
+}

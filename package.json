@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "scripts": {
+    "prod": "gulp --production",
+    "dev": "gulp watch"
+  },
+  "devDependencies": {
+    "bootstrap-datepicker": "^1.6.4",
+    "bootstrap-sass": "^3.3.7",
+    "bootswatch": "^3.3.7",
+    "font-awesome": "^4.6.3",
+    "gulp": "^3.9.1",
+    "jquery": "^3.1.0",
+    "laravel-echo": "^1.0.4",
+    "laravel-elixir": "^6.0.0-11",
+    "laravel-elixir-vue": "^0.1.7",
+    "laravel-elixir-webpack-official": "^1.0.5",
+    "lodash": "^4.14.0",
+    "moment": "^2.15.0",
+    "pusher-js": "^3.2.1",
+    "vue": "^2.0.0-rc.6",
+    "vue-resource": "^0.9.3",
+    "vue-router": "^2.0.0-rc.5"
+  }
+}

@@ -1,0 +1,38 @@
+html, body {
+    min-height: 100vh;
+}
+body {
+    padding-top: 70px;
+}
+.navbar {
+    .profile-photo {
+        border-radius: 100%;
+        margin: -10px 6px -10px 0;
+        height: 36px;
+        width: 36px;
+    }
+}
+.toast {
+    bottom: -60px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .25);
+    opacity: 0;
+    position: fixed;
+    transition-duration: .3s;
+    z-index: 1;
+
+    &.active {
+        bottom: 0;
+        opacity: 1;
+    }
+}
+*,
+.btn {
+    &,
+    &:active,
+    &.active {
+        &:focus,
+        &.focus {
+            outline: none;
+        }
+    }
+}

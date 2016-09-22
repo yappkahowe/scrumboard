@@ -1,0 +1,17 @@
+#my-tasks {
+    .data {
+        background-color: #fff;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .25);
+        margin-top: 12px;
+        padding: $padding-base-vertical $padding-base-horizontal;
+
+        td {
+            vertical-align: middle;
+
+            &.status,
+            &.action .btn {
+                min-width: 85px;
+            }
+        }
+    }
+}
