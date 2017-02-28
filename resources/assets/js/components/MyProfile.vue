@@ -9,7 +9,7 @@
         <div class="data">
             <div class="row">
                 <div class="col-md-3">
-                    <img :src="user.avatar_url" class="photo">
+                    <img :src="user.avatar_url" class="photo img-responsive">
                 </div>
                 <div class="col-md-6">
                     <form class="form" ref="form-profile" @submit.prevent="saveProfile">

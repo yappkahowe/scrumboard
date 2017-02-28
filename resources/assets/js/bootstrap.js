@@ -22,9 +22,9 @@ window.moment = require('moment')
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue/dist/vue')
-Vue.use(window.VueResource = require('vue-resource'))
-Vue.use(window.VueRouter = require('vue-router'))
+window.Vue = require('vue')
+require('vue-resource')
+Vue.use(window.VueRouter = require('vue-router/dist/vue-router'))
 Vue.component('spinner', require('./components/partials/Spinner.vue'))
 
 /**
@@ -39,8 +39,8 @@ window.le = require('./utils.js')
  */
 
 Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken
-    request.headers['Authorization'] = 'Bearer ' + localStorage.api_token
+    request.headers.set('X-CSRF-TOKEN', Laravel.csrfToken)
+    request.headers.set('Authorization', 'Bearer ' + localStorage.api_token)
 
     next()
 })

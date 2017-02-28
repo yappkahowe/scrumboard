@@ -25,7 +25,7 @@ const app = new Vue({
         }
     },
     created() {
-        this.$http.get('/api/me').then(response => this.user = response.json())
+        this.$http.get('/api/me').then(response => this.user = response.data)
 
         this.$on('updatedMyself', profile => this.user = profile)
     }

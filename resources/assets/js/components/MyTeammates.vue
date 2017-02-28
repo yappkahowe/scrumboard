@@ -144,9 +144,21 @@
         computed: {
             filteredTeammates() {
                 return this.teammates.filter(teammate => {
-                    return teammate.name.toLowerCase().includes(this.filter.name.toLowerCase()) &&
-                        teammate.designation.toLowerCase().includes(this.filter.designation.toLowerCase()) &&
-                        teammate.email.toLowerCase().includes(this.filter.email.toLowerCase())
+                    let pass = true
+
+                    if (this.filter.name) {
+                        pass = pass && teammate.name.toLowerCase().includes(this.filter.name.toLowerCase())
+                    }
+
+                    if (this.filter.designation) {
+                        pass = pass && teammate.designation && teammate.designation.toLowerCase().includes(this.filter.designation.toLowerCase())
+                    }
+
+                    if (this.filter.email) {
+                        pass = pass && teammate.email.toLowerCase().includes(this.filter.email.toLowerCase())
+                    }
+
+                    return pass
                 })
             }
         },
@@ -167,8 +179,8 @@
                 this.$http.post('/api/users', this.add).then(response => {
                     this.resetAddAndErrors()
 
-                    this.newTeammate = response.json()
-                    this.teammates.unshift(response.json())
+                    this.newTeammate = response.data
+                    this.teammates.unshift(response.data)
 
                     $button.removeAttr('disabled').html('Add Teammate')
                     $modal.modal('hide')
@@ -176,7 +188,7 @@
                     setTimeout(() => { $(this.$refs.toast).addClass('active') }, 400)
                     setTimeout(() => { $(this.$refs.toast).removeClass('active') }, 5400)
                 }).catch(response => {
-                    let errors = response.json()
+                    let errors = response.data
 
                     Object.keys(this.errors).forEach(key => this.errors[key] = errors[key] ? errors[key][0]: '')
                     $button.removeAttr('disabled').html('Add Teammate')
@@ -186,7 +198,7 @@
                 $(event.target).attr('disabled', 'disabled').html('Deleting...')
 
                 this.$http.delete('/api/users/' + teammate.id).then(response => {
-                    teammate.deleted_at = response.json().deleted_at
+                    teammate.deleted_at = response.data.deleted_at
 
                     $(event.target).removeAttr('disabled').html('Delete')
                 })
@@ -195,14 +207,14 @@
                 $(event.target).attr('disabled', 'disabled').html('Restoring...')
 
                 this.$http.post('/api/users/' + teammate.id).then(response => {
-                    teammate.deleted_at = response.json().deleted_at
+                    teammate.deleted_at = response.data.deleted_at
 
                     $(event.target).removeAttr('disabled').html('Restore')
                 })
             }
         },
         created() {
-            this.$http.get('/api/users').then(response => this.teammates = response.json())
+            this.$http.get('/api/users').then(response => this.teammates = response.data)
         },
         mounted() {
             $(this.$refs['add-modal']).on('shown.bs.modal', () => this.$refs['add-name-input'].focus())

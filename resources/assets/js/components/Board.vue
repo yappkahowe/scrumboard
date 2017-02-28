@@ -176,24 +176,19 @@
 
                 // if target task is not found in its current stage, 
                 // which means it is either moved into different stage or just restored from trash
-                if (!targetTask) {
+                if (! targetTask) {
+                    oldStage = teammate.stages.find(stage => {
+                        return (targetTask = stage.tasks.find(task => task.id == updatedTask.id))
+                    })
 
-                    // restored from trash
-                    if (newStage) {
-                        targetTask = updatedTask
-                        newStage.tasks.push(updatedTask)
-                    }
-                    else {
-                        oldStage = teammate.stages.find(stage => {
-                            return (targetTask = stage.tasks.find(task => task.id == updatedTask.id))
-                        })
+                    newStage.tasks.push(updatedTask)
+
+                    if (oldStage) {
+                        oldStage.tasks.splice(oldStage.tasks.indexOf(updatedTask), 1)
                     }
                 }
-
-                Object.keys(updatedTask).forEach(key => { Vue.set(targetTask, key, updatedTask[key]) })
-
-                if (oldStage && oldStage.id != newStage.id) {
-                    this.moveTask(targetTask, oldStage, newStage)
+                else {
+                    Object.keys(updatedTask).forEach(key => { Vue.set(targetTask, key, updatedTask[key]) })
                 }
 
                 teammate.last_reported_at = updatedTask.updated_at
@@ -211,7 +206,7 @@
             },
             createTaskInServer(task, teammate) {
                 this.$http.post('/api/tasks', task).then(response => {
-                    let createdTask = response.json()
+                    let createdTask = response.data
 
                     Object.keys(createdTask).forEach(key => { Vue.set(task, key, createdTask[key]) })
                     teammate.last_reported_at = createdTask.updated_at
@@ -223,7 +218,7 @@
                 let body = _.merge({ _method: 'PATCH' }, task)
 
                 this.$http.post('/api/tasks/' + task.id, body).then(response => {
-                    let updatedTask = response.json()
+                    let updatedTask = response.data
 
                     task.updated_at = updatedTask.updated_at
                     teammate.last_reported_at = updatedTask.updated_at
@@ -231,7 +226,7 @@
             },
             removeTaskInServer(task, teammate) {
                 this.$http.post('/api/tasks/' + task.id, { _method: 'DELETE' }).then(response => {
-                    teammate.last_reported_at = response.json().deleted_at
+                    teammate.last_reported_at = response.data.deleted_at
                 })
             },
             teammateJoining(user) {
@@ -249,11 +244,11 @@
         },
         created() {
             this.$http({ url: '/api/stages' }).then(response => {
-                this.stages = response.json()
+                this.stages = response.data
             })
 
             this.$http({ url: '/api/teammates' }).then(response => {
-                this.teammates = response.json()
+                this.teammates = response.data
             })
 
             Echo.join('board')

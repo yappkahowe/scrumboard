@@ -125,7 +125,7 @@
                 $button.attr('disabled', 'disabled').html('Removing...')
 
                 this.$http.delete('/api/tasks/' + task.id).then(response => {
-                    task.deleted_at = response.json().deleted_at
+                    task.deleted_at = response.data.deleted_at
 
                     $button.removeAttr('disabled').html('Remove')
                 })
@@ -136,14 +136,14 @@
                 $button.attr('disabled', 'disabled').html('Restoring...')
 
                 this.$http.post('/api/tasks/' + task.id).then(response => {
-                    task.deleted_at = response.json().deleted_at
+                    task.deleted_at = response.data.deleted_at
 
                     $button.removeAttr('disabled').html('Restore')
                 })
             }
         },
         created() {
-            this.$http.get('/api/my-tasks').then(response => this.tasks = response.json())
+            this.$http.get('/api/my-tasks').then(response => this.tasks = response.data)
         },
         mounted() {
             let $createdFrom = $(this.$refs['created-from']),
