@@ -81,7 +81,7 @@
                 $button.attr('disabled', 'disabled').html('Saving Profile...')
 
                 this.$http.post('/api/me', data).then(response => {
-                    this.$router.app.$emit('updatedMyself', response.json())
+                    this.$router.app.$emit('updatedMyself', response.data)
 
                     $button.removeAttr('disabled').html('Save Profile')
                     $toast.addClass('active')
